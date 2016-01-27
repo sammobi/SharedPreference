@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
     public static final String Email = "emailKey";
     public static final String Password = "passwordKey";
     public static final String ConfirmPassword = "confirmPasswordKey";
-    public static final boolean OnOffSwitch = Boolean.parseBoolean("onOffKey");
+    public static final String OnOffSwitch = "onOffKey";
 
 
     SharedPreferences sharedpreferences;
@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
         mPhoneEt = (EditText) findViewById(R.id.phoneEt);
         mOnOffSwtc = (Switch) findViewById(R.id.onOffSwtch);
 
-      
+
 
         /*
         Step 3 : Get data from sharedpreference
@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
             mConfirmPasswordEt.setText(sharedpreferences.getString(ConfirmPassword, ""));
         }
         if (sharedpreferences.contains(String.valueOf(OnOffSwitch))) {
-            mOnOffSwtc.setChecked(sharedpreferences.getBoolean("", OnOffSwitch));
+            mOnOffSwtc.setChecked(sharedpreferences.getBoolean(OnOffSwitch, false));
         }
 
 
@@ -89,6 +89,8 @@ public class MainActivity extends ActionBarActivity {
                 String e = mEmailEt.getText().toString();
                 String pw = mPasswordEt.getText().toString();
                 String cpw = mConfirmPasswordEt.getText().toString();
+                Boolean onoff = mOnOffSwtc.isChecked();
+
 
 
 
@@ -103,9 +105,8 @@ public class MainActivity extends ActionBarActivity {
                 editor.putString(Phone, ph);
                 editor.putString(Email, e);
                 editor.putString(Password, pw);
-                boolean tgpref = sharedpreferences.getBoolean("tgpref", false);  //default is true
+                editor.putBoolean(OnOffSwitch, onoff);
 
-                mOnOffSwtc.setChecked(tgpref);
                 editor.putString(ConfirmPassword, cpw);
                 editor.apply();
 
